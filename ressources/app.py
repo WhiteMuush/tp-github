@@ -4,6 +4,7 @@ Mini API Flask utilisée comme cible du pipeline CI/CD dans le TP GitHub Actions
 """
 
 from flask import Flask, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ LOG_SUMMARY = {
 
 @app.route("/")
 def index():
-    return jsonify({"status": "ok", "service": "NexaCloud API", "version": "1.1.0"})
+    return jsonify({"status": "ok", "service": "NexaCloud API", "version": "1.1.0", "description": "Ceci est une ligne volontairement trop longue pour déclencher une erreur flake8 E501"})
 
 
 @app.route("/health")
