@@ -29,5 +29,23 @@ jobs:
       - name: lint flake8
         run : flake8 ressources/ --config ressources/.flake8
 
-      - name : Lancer les tests
-        run : pytest ressources/ -v
+      # Ajouter la couverture de tests
+      - name: Tests avec couverture
+        run: pytest ressources/ -v --cov=ressources --cov-report=term-missing
+
+      # Uploader le rapport de couverture comme artefact téléchargeable
+      - name: Générer le rapport HTML
+        run: pytest ressources/ --cov=ressources --cov-report=html
+
+      - name: Upload du rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-couverture
+          path: htmlcov/
+        
+      # Mettre en cache les dépendances pip (accélère les builds suivants)
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('ressources/requirements.txt') }}
