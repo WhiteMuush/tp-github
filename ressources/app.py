@@ -4,7 +4,6 @@ Mini API Flask utilisée comme cible du pipeline CI/CD dans le TP GitHub Actions
 """
 
 from flask import Flask, jsonify
-import os
 
 app = Flask(__name__)
 
