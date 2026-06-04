@@ -19,7 +19,7 @@ LOG_SUMMARY = {
 
 @app.route("/")
 def index():
-    return jsonify({"status": "ok", "service": "NexaCloud API", "version": "1.1.0", "description": "Ceci est une ligne volontairement trop longue pour déclencher une erreur flake8 E501"})
+    return jsonify({"status": "ok", "service": "NexaCloud API", "version": "1.1.0"})
 
 
 @app.route("/health")
