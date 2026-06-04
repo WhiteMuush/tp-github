@@ -57,4 +57,3 @@ def test_logs_critical_alerte(client):
     assert "critical_count" in data
     assert "alerte" in data
     assert data["alerte"] is True
-    
