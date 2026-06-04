@@ -16,3 +16,6 @@ jobs:
 
       - name: Example step
         run: echo "Add your build/test steps here!"
+
+      - name: Dire bonjour
+        run: echo "Bonjour depuis GitHub Actions"
