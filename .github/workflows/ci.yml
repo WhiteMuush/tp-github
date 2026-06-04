@@ -1,21 +1,27 @@
-name: CI
+name: CI — NexaCloud API
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Example step
-        run: echo "Add your build/test steps here!"
+      - name : Checkout Python
+        uses: actions/setup-python@v5
+        
+        with: 
+          python-version : '3.11'
 
-      - name: Dire bonjour
-        run: echo "Bonjour depuis GitHub Actions"
+      - name : Installer les dépendances
+        run : pip install -r ressources/requirements.txt
+
+      - name : Lancer les tests
+        run : pytest ressources/ -v
