@@ -1,0 +1,15 @@
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: [--config, ressources/.flake8]
+        files: ressources/.*\.py$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace      # supprime les espaces en fin de ligne
+      - id: end-of-file-fixer        # ajoute un saut de ligne en fin de fichier
+      - id: check-yaml               # valide les fichiers YAML (vos workflows !)
+      - id: check-merge-conflict     # bloque si des marqueurs de conflit Git traînent
