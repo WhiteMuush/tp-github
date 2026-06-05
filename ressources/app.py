@@ -38,5 +38,5 @@ def logs_critical():
     return jsonify({"critical_count": seuil, "alerte": alerte})
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     app.run(debug=True, port=5001)
