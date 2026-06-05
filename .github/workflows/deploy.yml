@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging          # utilise l'environnement staging
+
+    steps:
+      - name: Déployer en staging
+        run: echo "Déploiement en staging..."
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment: production       # TODO: ajouter la dépendance sur deploy-staging
+    needs: deploy-staging
+
+    steps:
+      - name: Déployer en production
+        run: echo "Déploiement en production !"
