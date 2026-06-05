@@ -1,0 +1,21 @@
+version: 2
+
+updates:
+  # ── Mettre à jour les actions GitHub ──────────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"                    # cherche dans .github/workflows/
+    schedule:
+      interval: "weekly"             # vérifie chaque semaine
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # ── Mettre à jour les dépendances Python ──────────────────────────
+  - package-ecosystem: "pip"
+    directory: "/ressources"         # cherche requirements.txt ici
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "python"
+    open-pull-requests-limit: 5      # max 5 PRs ouvertes en même temps
