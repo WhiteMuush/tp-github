@@ -1,0 +1,73 @@
+name: CI/CD — NexaCloud API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qualite:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: pip install -r ressources/requirements.txt
+
+      - name: Lint
+        run: flake8 ressources/ --config ressources/.flake8
+
+      - name: Tests avec couverture
+        run: pytest ressources/ -v --cov=ressources --cov-report=term-missing
+
+  staging:
+    runs-on: ubuntu-latest
+    needs: qualite
+    environment: staging
+    if: github.ref_name == 'main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: pip install -r ressources/requirements.txt
+
+      - name: Déployer sur Azure App Service (staging)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "nexacloud-api-staging"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_STAGING }}
+          package: ressources/
+
+  production:
+    runs-on: ubuntu-latest
+    needs: staging
+    environment: production
+    if: github.ref_name == 'main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: pip install -r ressources/requirements.txt
+
+      - name: Déployer sur Azure App Service (production)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "nexacloud-api"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ressources/
