@@ -1,0 +1,16 @@
+# Syntaxe : <pattern de fichier>  <@utilisateur ou @org/équipe>
+
+# Par défaut : tout changement requiert une review de ces personnes
+*                          @WhiteMuush
+
+# Les workflows CI/CD ne peuvent être modifiés que par le lead DevOps
+.github/workflows/         @WhiteMuush
+
+# Le fichier de dépendances requiert une validation technique
+ressources/requirements.txt  @WhiteMuush
+
+# Les fichiers de sécurité requièrent une double validation
+.github/dependabot.yml     @WhiteMuush
+.github/CODEOWNERS         @WhiteMuush
+
+ressources/*               @jaims-31
