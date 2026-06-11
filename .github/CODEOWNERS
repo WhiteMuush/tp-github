@@ -13,4 +13,4 @@ ressources/requirements.txt  @WhiteMuush
 .github/dependabot.yml     @WhiteMuush
 .github/CODEOWNERS         @WhiteMuush
 
-ressources/*               @jaims-31
+ressources/*               @jaims-31 @WhiteMuush
